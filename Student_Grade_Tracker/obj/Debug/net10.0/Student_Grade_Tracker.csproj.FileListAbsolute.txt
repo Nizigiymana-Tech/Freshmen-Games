@@ -1,0 +1,14 @@
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/bin/Debug/net10.0/Student_Grade_Tracker
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/bin/Debug/net10.0/Student_Grade_Tracker.deps.json
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/bin/Debug/net10.0/Student_Grade_Tracker.runtimeconfig.json
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/bin/Debug/net10.0/Student_Grade_Tracker.dll
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/bin/Debug/net10.0/Student_Grade_Tracker.pdb
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/obj/Debug/net10.0/Student_Grade_Tracker.GeneratedMSBuildEditorConfig.editorconfig
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/obj/Debug/net10.0/Student_Grade_Tracker.AssemblyInfoInputs.cache
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/obj/Debug/net10.0/Student_Grade_Tracker.AssemblyInfo.cs
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/obj/Debug/net10.0/Student_Grade_Tracker.csproj.CoreCompileInputs.cache
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/obj/Debug/net10.0/Student_Grade_Tracker.dll
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/obj/Debug/net10.0/refint/Student_Grade_Tracker.dll
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/obj/Debug/net10.0/Student_Grade_Tracker.pdb
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/obj/Debug/net10.0/Student_Grade_Tracker.genruntimeconfig.cache
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/obj/Debug/net10.0/ref/Student_Grade_Tracker.dll
