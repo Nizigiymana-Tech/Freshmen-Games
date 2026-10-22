@@ -21,3 +21,10 @@ C:\Users\Terance\Desktop\ShopWork\Freshmen-Games\Student_Grade_Tracker\obj\Debug
 C:\Users\Terance\Desktop\ShopWork\Freshmen-Games\Student_Grade_Tracker\obj\Debug\net10.0\Student_Grade_Tracker.dll
 C:\Users\Terance\Desktop\ShopWork\Freshmen-Games\Student_Grade_Tracker\obj\Debug\net10.0\refint\Student_Grade_Tracker.dll
 C:\Users\Terance\Desktop\ShopWork\Freshmen-Games\Student_Grade_Tracker\obj\Debug\net10.0\Student_Grade_Tracker.pdb
+C:\Users\Terance\Desktop\ShopWork\Freshmen-Games\Student_Grade_Tracker\bin\Debug\net10.0\Student_Grade_Tracker.exe
+C:\Users\Terance\Desktop\ShopWork\Freshmen-Games\Student_Grade_Tracker\bin\Debug\net10.0\Student_Grade_Tracker.deps.json
+C:\Users\Terance\Desktop\ShopWork\Freshmen-Games\Student_Grade_Tracker\bin\Debug\net10.0\Student_Grade_Tracker.runtimeconfig.json
+C:\Users\Terance\Desktop\ShopWork\Freshmen-Games\Student_Grade_Tracker\bin\Debug\net10.0\Student_Grade_Tracker.dll
+C:\Users\Terance\Desktop\ShopWork\Freshmen-Games\Student_Grade_Tracker\bin\Debug\net10.0\Student_Grade_Tracker.pdb
+C:\Users\Terance\Desktop\ShopWork\Freshmen-Games\Student_Grade_Tracker\obj\Debug\net10.0\Student_Grade_Tracker.genruntimeconfig.cache
+C:\Users\Terance\Desktop\ShopWork\Freshmen-Games\Student_Grade_Tracker\obj\Debug\net10.0\ref\Student_Grade_Tracker.dll

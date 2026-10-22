@@ -113,7 +113,7 @@ class GradeTracker
 
         if (type == "remove")
         {
-            if (!students.ContainsKey(className))
+            if (!classDict.ContainsKey(className))
             {
                 return (false, $"{className} was not enrolled for {name}");
             }
@@ -135,7 +135,7 @@ class GradeTracker
 
         if (type == "change")
         {
-            if (!classDict.ContainsKey(name))
+            if (!classDict.ContainsKey(className))
             {
                 return (false, $"cannot update grade if they dont have the class, using add instead to update.");
             }
@@ -257,7 +257,7 @@ class OptionFunctions
 
     public static void Show()
     {
-        Console.WriteLine("What is the student's name? (Note: Student will be completely deleted.)");
+        Console.WriteLine("What is the student's name?");
         Console.Write("");
 
         string studentName = Console.ReadLine()!;
@@ -296,7 +296,7 @@ class OptionFunctions
             return;
         }
 
-        Console.WriteLine("Do you want to add or remove a grade? (Use Add or Remove)");
+        Console.WriteLine("Do you want to add, remove or change a grade? (Use Add, Remove and Change)");
         Console.Write("");
 
         string type = Console.ReadLine()!.Trim().ToLower();
