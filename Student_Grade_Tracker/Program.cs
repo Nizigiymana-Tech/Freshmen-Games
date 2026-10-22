@@ -13,7 +13,7 @@ using System.Threading;
 // - - Science
 // - - Grade: 50
 // - - English
-// - - Grade: 90
+// - - Grade: 
 
 class Helpers
 {
@@ -97,7 +97,7 @@ class GradeTracker
         return (true, "Succesfully shown.");
     }
 
-    public static (bool, string) ModifyStudentData(string name, string Type)
+    public static (bool, string) ModifyStudentData(string name, string type, string className, double grade = 0)
     {
         if (Helpers.IsInvalid(name))
         {
@@ -111,6 +111,40 @@ class GradeTracker
 
         var classDict = students[name];
 
+        if (type == "remove")
+        {
+            if (!students.ContainsKey(className))
+            {
+                return (false, $"{className} was not enrolled for {name}");
+            }
+
+            classDict.Remove(className);
+            return (true, $"succesfully removed {className} from {name}");
+        }
+
+        if (type == "add")
+        {
+            if (classDict.ContainsKey(className))
+            {
+                return (false, $"cannot add an existing class, using change instead to update.");
+            }
+
+            classDict[className] = grade;
+            return (true, $"succesfully removed {className} from {name}");
+        }
+
+        if (type == "change")
+        {
+            if (!classDict.ContainsKey(name))
+            {
+                return (false, $"cannot update grade if they dont have the class, using add instead to update.");
+            }
+
+            classDict[className] = grade;
+            return (true, $"succesfully removed {className} from {name}");
+        }
+
+        return (false, $"something went wrong.");
     }
 }
 
@@ -233,7 +267,7 @@ class OptionFunctions
             Console.WriteLine("Name cannot be Null or Empty.");
             Thread.Sleep(1000);
             return;
-        }   
+        }
 
         (bool success, string text) = GradeTracker.ShowStudentInfo(studentName);
 
@@ -260,22 +294,107 @@ class OptionFunctions
             Console.WriteLine("Name cannot be Null or Empty.");
             Thread.Sleep(1000);
             return;
-        }  
+        }
 
         Console.WriteLine("Do you want to add or remove a grade? (Use Add or Remove)");
         Console.Write("");
 
-        string type = Console.ReadLine()!;
+        string type = Console.ReadLine()!.Trim().ToLower();
+        string[] types = ["add", "remove", "change"];
 
         if (Helpers.IsInvalid(type))
         {
             Console.WriteLine("Type cannot be Null or Empty.");
             Thread.Sleep(1000);
             return;
-        }         
+        }
 
-        (bool success, string text) = GradeTracker.ShowStudentInfo(studentName, type);
-        
+        if (!types.Contains(type))
+        {
+            Console.WriteLine("the type you chose is not an option.");
+            Thread.Sleep(1000);
+            return;
+        }
+
+        Console.WriteLine("What is the class name?");
+        Console.Write("");
+
+        string className = Console.ReadLine()!;
+
+        if (Helpers.IsInvalid(className))
+        {
+            Console.WriteLine("className cannot be Null or Empty.");
+            Thread.Sleep(1000);
+            return;
+        }
+
+        if (type == "add")
+        {
+            Console.WriteLine("What is the Class Grade?");
+            string classGrade = Console.ReadLine()!;
+
+            if (Helpers.IsInvalid(classGrade))
+            {
+                Console.WriteLine("Grade cannot be Null or Empty.");
+                Thread.Sleep(1000);
+                return;
+            }
+
+            if (double.TryParse(classGrade, out double grade) && grade >= 0 && grade <= 100)
+            {
+                (bool success, string text) = GradeTracker.ModifyStudentData(studentName, type, className, grade);
+
+                if (!success)
+                {
+                    Console.WriteLine(text);
+                    Thread.Sleep(1000);
+                    return;
+                }
+
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Enter a grade between 0 and 100.");
+                return;
+            }
+        }
+
+        if (type == "change")
+        {
+            Console.WriteLine("What is the updated Class Grade?");
+            string classGrade = Console.ReadLine()!;
+
+            if (Helpers.IsInvalid(classGrade))
+            {
+                Console.WriteLine("Grade cannot be Null or Empty.");
+                Thread.Sleep(1000);
+                return;
+            }
+
+            if (double.TryParse(classGrade, out double grade) && grade >= 0 && grade <= 100)
+            {
+                (bool success, string text) = GradeTracker.ModifyStudentData(studentName, type, className, grade);
+
+                if (!success)
+                {
+                    Console.WriteLine(text);
+                    Thread.Sleep(1000);
+                    return;
+                }
+
+                return;
+            }
+        }
+
+        (bool successful, string texts) = GradeTracker.ModifyStudentData(studentName, type, className);
+
+        if (!successful)
+        {
+            Console.WriteLine(texts);
+            Thread.Sleep(1000);
+            return;
+        }
     }
 }
 
@@ -341,7 +460,7 @@ class Program
                 continue;
             }
 
-            if (option == "Q")
+            if (option == "q")
             {
                 Console.WriteLine("Thank you for opening.");
                 Thread.Sleep(1000);
