@@ -12,3 +12,4 @@
 /Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/obj/Debug/net10.0/Student_Grade_Tracker.pdb
 /Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/obj/Debug/net10.0/Student_Grade_Tracker.genruntimeconfig.cache
 /Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/obj/Debug/net10.0/ref/Student_Grade_Tracker.dll
+/Users/Terrance/Desktop/ShopWork/FreshmenGames/Student_Grade_Tracker/obj/Debug/net10.0/Student_Grade_Tracker.sourcelink.json

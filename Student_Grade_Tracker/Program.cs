@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 
 // Create an Dictionary that is named "Students" which has
 // - Name
@@ -26,9 +27,9 @@ class GradeTracker
 {
     public static Dictionary<string, Dictionary<string, double>> students = new Dictionary<string, Dictionary<string, double>>();
 
-    public static (bool, string) AddStudent(string name, Dictionary<string, double> classes)
+    public static (bool, string) RegisterStudent(string name)
     {
-        if (string.IsNullOrWhiteSpace(name))
+        if (Helpers.IsInvalid(name))
         {
             return (false, "The student name is empty.");
         }
@@ -38,17 +39,248 @@ class GradeTracker
             return (false, "Theres already a name inside the books.");
         }
 
-        if (classes.Count == 0)
+        students.Add(name, new Dictionary<string, double>());
+        return (true, "Succesfully saved.");
+    }
+
+    public static (bool, string) RegisterClasses(string name, Dictionary<string, double> classes)
+    {
+        if (Helpers.IsInvalid(name))
         {
-            return (false, "No classes were added.");
+            return (false, "The student name is empty.");
         }
 
-        students.Add(name, classes);
-        return (true, "Succesfully saved.");
+        if (!students.ContainsKey(name))
+        {
+            return (false, "Student doesn't exist.");
+        }
+
+        students[name] = classes;
+        return (true, "Successfully enrolled.");
+    }
+
+    public static (bool, string) UnenrollStudent(string name)
+    {
+        if (Helpers.IsInvalid(name))
+        {
+            return (false, "The student name is empty.");
+        }
+
+        if (!students.ContainsKey(name))
+        {
+            return (false, "Student isn't in the system.");
+        }
+
+        students.Remove(name);
+        return (true, "Succesfully Deleted.");
+    }
+
+    public static (bool, string) ShowStudentInfo(string name)
+    {
+        if (Helpers.IsInvalid(name))
+        {
+            return (false, "The student name is empty.");
+        }
+
+        if (!students.ContainsKey(name))
+        {
+            return (false, "Student isn't in the system.");
+        }
+
+        var classDict = students[name];
+
+        foreach (var (key, value) in classDict)
+        {
+            Console.WriteLine($"- {key}: {value}");
+        }
+
+        return (true, "Succesfully shown.");
+    }
+
+    public static (bool, string) ModifyStudentData(string name, string Type)
+    {
+        if (Helpers.IsInvalid(name))
+        {
+            return (false, "The student name is empty.");
+        }
+
+        if (!students.ContainsKey(name))
+        {
+            return (false, "Student isn't in the system.");
+        }
+
+        var classDict = students[name];
+
     }
 }
 
-class Program {
+class OptionFunctions
+{
+    // ----------------------------------- \\
+    public static void Add()
+    {
+        Dictionary<string, double> classDict = new Dictionary<string, double>();
+        Console.WriteLine("What is the student's name?");
+        Console.Write("");
+
+        string studentName = Console.ReadLine()!;
+
+        if (Helpers.IsInvalid(studentName))
+        {
+            Console.WriteLine("Name cannot be Null or Empty.");
+            Thread.Sleep(1000);
+            return;
+        }
+
+        (bool Success, string Text) = GradeTracker.RegisterStudent(studentName);
+
+        if (!Success)
+        {
+            Console.WriteLine(Text);
+            Thread.Sleep(1000);
+            return;
+        }
+
+        while (true)
+        {
+            Console.WriteLine("What is the Class Name? (Type 'Q' To Exit.)");
+            Console.Write("");
+            string className = Console.ReadLine()!;
+
+            if (Helpers.IsInvalid(className))
+            {
+                Console.WriteLine("Name cannot be Null or Empty.");
+                Thread.Sleep(1000);
+                continue;
+            }
+
+            if (classDict.ContainsKey(className))
+            {
+                Console.WriteLine("This class already exists.");
+                continue;
+            }
+
+            if (className == "Q")
+            {
+                Console.WriteLine("Saving and closing...");
+                Thread.Sleep(1000);
+                break;
+            }
+
+            Console.WriteLine("What is the Class Grade?");
+            string classGrade = Console.ReadLine()!;
+
+            if (Helpers.IsInvalid(classGrade))
+            {
+                Console.WriteLine("Grade cannot be Null or Empty.");
+                Thread.Sleep(1000);
+                continue;
+            }
+
+            if (double.TryParse(classGrade, out double grade) && grade >= 0 && grade <= 100)
+            {
+                classDict.Add(className, grade);
+            }
+            else
+            {
+                Console.WriteLine("Enter a grade between 0 and 100.");
+                continue;
+            }
+        }
+
+        GradeTracker.RegisterClasses(studentName, classDict);
+    }
+    // ------------------------------------------------------- \\
+
+    public static void Remove()
+    {
+        Console.WriteLine("What is the student's name? (Note: Student will be completely deleted.)");
+        Console.Write("");
+
+        string studentName = Console.ReadLine()!;
+
+        if (Helpers.IsInvalid(studentName))
+        {
+            Console.WriteLine("Name cannot be Null or Empty.");
+            Thread.Sleep(1000);
+            return;
+        }
+
+        (bool success, string text) = GradeTracker.UnenrollStudent(studentName);
+
+        if (!success)
+        {
+            Console.WriteLine(text);
+            Thread.Sleep(1000);
+            return;
+        }
+
+        Console.WriteLine($"{studentName} has been removed.");
+        Thread.Sleep(1000);
+    }
+
+    // ------------------------------------------------------- \\
+
+    public static void Show()
+    {
+        Console.WriteLine("What is the student's name? (Note: Student will be completely deleted.)");
+        Console.Write("");
+
+        string studentName = Console.ReadLine()!;
+
+        if (Helpers.IsInvalid(studentName))
+        {
+            Console.WriteLine("Name cannot be Null or Empty.");
+            Thread.Sleep(1000);
+            return;
+        }   
+
+        (bool success, string text) = GradeTracker.ShowStudentInfo(studentName);
+
+        if (!success)
+        {
+            Console.WriteLine(text);
+            Thread.Sleep(1000);
+            return;
+        }
+
+        Console.Write("Press enter to exit: ");
+        Console.ReadLine();
+    }
+
+    public static void Change()
+    {
+        Console.WriteLine("What is the student's name? ");
+        Console.Write("");
+
+        string studentName = Console.ReadLine()!;
+
+        if (Helpers.IsInvalid(studentName))
+        {
+            Console.WriteLine("Name cannot be Null or Empty.");
+            Thread.Sleep(1000);
+            return;
+        }  
+
+        Console.WriteLine("Do you want to add or remove a grade? (Use Add or Remove)");
+        Console.Write("");
+
+        string type = Console.ReadLine()!;
+
+        if (Helpers.IsInvalid(type))
+        {
+            Console.WriteLine("Type cannot be Null or Empty.");
+            Thread.Sleep(1000);
+            return;
+        }         
+
+        (bool success, string text) = GradeTracker.ShowStudentInfo(studentName, type);
+        
+    }
+}
+
+class Program
+{
 
     // Should have the Dictionary of the Students
     // Asks the user if they want to remove or add a student or change their grade
@@ -80,7 +312,7 @@ class Program {
     // Finished!
     static void Main()
     {
-        string[] options = ["Add", "Remove", "Change", "Show", "Q"];
+        string[] options = ["add", "remove", "change", "show", "q"];
 
         while (true)
         {
@@ -93,7 +325,7 @@ class Program {
             Console.WriteLine("5. Leave (Q)");
 
             Console.Write("");
-            string option = Console.ReadLine()!;
+            string option = Console.ReadLine()!.Trim().ToLower();
 
             if (string.IsNullOrWhiteSpace(option))
             {
@@ -117,62 +349,27 @@ class Program {
             }
 
             // Add
-            if (option == "Add")
+            if (option == options[0])
             {
-                Dictionary<string, double> classDict = new Dictionary<string, double>();
-                Console.WriteLine("Disclaimer: This will loop until you respond with Q (studentName) to exit. Each loop will save");
-                Console.WriteLine("What is the student's name?");
-                Console.Write("");
+                OptionFunctions.Add();
+            }
 
-                string studentName = Console.ReadLine()!;
+            // Remove
+            if (option == options[1])
+            {
+                OptionFunctions.Remove();
+            }
 
-                if (Helpers.IsInvalid(studentName))
-                {
-                    Console.WriteLine("Name cannot be Null or Empty.");
-                    Thread.Sleep(1000);
-                    continue;
-                }
+            // Change
+            if (option == options[2])
+            {
+                OptionFunctions.Change();
+            }
 
-                while (true)
-                {
-                    Console.WriteLine("What is the Class Name?");
-                    Console.Write("");
-                    string className = Console.ReadLine()!;
-
-                    if (Helpers.IsInvalid(className))
-                    {
-                        Console.WriteLine("Name cannot be Null or Empty.");
-                        Thread.Sleep(1000);
-                        continue;
-                    }
-
-                    if (className == "Q")
-                    {
-                        Console.WriteLine("Saving and closing...");
-                        Thread.Sleep(1000);
-                        break;
-                    }
-
-                    Console.WriteLine("What is the Class Grade?");
-                    string classGrade = Console.ReadLine()!;
-
-                    if (Helpers.IsInvalid(classGrade))
-                    {
-                        Console.WriteLine("Grade cannot be Null or Empty.");
-                        Thread.Sleep(1000);
-                        continue;
-                    }
-
-                    if (double.TryParse(classGrade, out double grade))
-                    {
-                        // (bool, string) = GradeTracker.AddStudent(studentName, classDict);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid input. Please enter a whole number.");
-                        continue;
-                    }
-                }
+            // Show
+            if (option == options[3])
+            {
+                OptionFunctions.Show();
             }
         }
     }
